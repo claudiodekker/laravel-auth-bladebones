@@ -5,7 +5,8 @@ on:
   pull_request:
 
 jobs:
-  tests:
+  validator:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
