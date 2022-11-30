@@ -50,6 +50,19 @@ jobs:
         run: php artisan auth:generate --yes ${{ matrix.variants }}
         working-directory: ./app
 
-      - name: Validate using Laravel Pint
-        run: pint --preset laravel --test
+      - name: Stage all generated files
+        run: git add . && git commit -m "Generated Auth Scaffolding"
         working-directory: ./app
+
+      - name: Fix using Laravel Pint
+        run: pint --preset laravel
+        working-directory: ./app
+
+      - name: Display any fixed (read: unfixed) changes.
+        run: |
+          if [[ -z $(git status --porcelain) ]]; then
+              exit 0
+          fi
+
+          git --no-pager diff
+          exit 1
