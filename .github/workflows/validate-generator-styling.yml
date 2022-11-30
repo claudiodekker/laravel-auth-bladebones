@@ -69,6 +69,6 @@ jobs:
               exit 0
           fi
 
-          git --no-pager --color=always diff
+          git -c color.ui=always --no-pager diff
           exit 1
         working-directory: ./app
