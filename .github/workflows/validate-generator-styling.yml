@@ -51,7 +51,12 @@ jobs:
         working-directory: ./app
 
       - name: Stage all generated files
-        run: git init . && git add . && git commit -m "Generated Auth Scaffolding"
+        run: |
+          git config --global user.email "github@actions.test"
+          git config --global user.name "GitHub Actions"
+          git init .
+          git add .
+          git commit -m "Generated Auth Scaffolding"
         working-directory: ./app
 
       - name: Fix using Laravel Pint
