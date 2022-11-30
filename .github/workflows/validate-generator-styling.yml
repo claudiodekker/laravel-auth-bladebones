@@ -58,7 +58,7 @@ jobs:
         run: pint --preset laravel
         working-directory: ./app
 
-      - name: Display any fixed (read: unfixed) changes.
+      - name: Show any to-be-fixed changes
         run: |
           if [[ -z $(git status --porcelain) ]]; then
               exit 0
@@ -66,3 +66,4 @@ jobs:
 
           git --no-pager diff
           exit 1
+        working-directory: ./app
