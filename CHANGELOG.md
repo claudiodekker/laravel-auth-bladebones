@@ -12,9 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PHP 8.2 Support ([#5](https://github.com/claudiodekker/laravel-auth-bladebones/pull/5))
 - The Passkey-based registration flow can now be cancelled, directly releasing the claimed user ([#7](https://github.com/claudiodekker/laravel-auth-bladebones/pull/7))
 
+### Changed
+
+- New Account Security Strength Indicator ([#9](https://github.com/claudiodekker/laravel-auth-bladebones/pull/9))
+- The recovery challenge will now be skipped when no codes have been configured ([#10](https://github.com/claudiodekker/laravel-auth-bladebones/pull/10))
+
 ### Fixed
 
-- Fixed a minor issue that caused recovery codes to not fit in the recovery field when including a dash (-) ([#4](https://github.com/claudiodekker/laravel-auth-bladebones/issues/4))
+- Fixed a minor issue that caused recovery codes to not fit in the recovery field when including a dash (-) ([#8](https://github.com/claudiodekker/laravel-auth-bladebones/issues/8))
 
 ## [v0.1.2](https://github.com/claudiodekker/laravel-auth-bladebones/compare/v0.1.2...v0.1.1) - 2022-11-30
 
