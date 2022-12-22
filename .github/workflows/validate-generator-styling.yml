@@ -20,15 +20,30 @@ jobs:
 
     name: Variant - ${{ matrix.variants }}
     steps:
-      - name: Checkout code
+      - name: Checkout core
         uses: actions/checkout@v3
         with:
-          path: ./package
+          repository: "claudiodekker/laravel-auth"
+          ref: '1.x'
+          path: ./core
+
+      - name: Checkout adapter
+        uses: actions/checkout@v3
+        with:
+          path: ./adapter
+
+      - name: Core - Switch to predictable branch name
+        run: git checkout -b gh-actions-predictable-core-branch
+        working-directory: ./core
+
+      - name: Adapter - Switch to predictable branch name
+        run: git checkout -b gh-actions-predictable-adapter-branch
+        working-directory: ./adapter
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
           extensions: dom, curl, libxml, mbstring, zip
           ini-values: error_reporting=E_ALL
           tools: composer:v2, pint
@@ -41,10 +56,11 @@ jobs:
           max_attempts: 5
           command: composer create-project laravel/laravel app "9.x" --remove-vcs --prefer-dist --no-interaction
 
-      - name: Install Package
+      - name: Install Packages
         run: |
-          composer config repositories.package path ../package
-          composer require claudiodekker/laravel-auth-bladebones
+          composer config repositories.core path ../core
+          composer config repositories.adapter path ../adapter
+          composer require "claudiodekker/laravel-auth:dev-gh-actions-predictable-core-branch as 1.9999.0" "claudiodekker/laravel-auth-bladebones:dev-gh-actions-predictable-adapter-branch" --${{ matrix.stability }}
         working-directory: ./app
 
       - name: Generate Auth Scaffolding
