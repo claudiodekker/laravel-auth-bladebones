@@ -17,6 +17,16 @@ class GenerateCommand extends BaseGenerateCommand
     }
 
     /**
+     * Installs the package's authentication scaffolding.
+     *
+     * @return void
+     */
+    protected function install(): void
+    {
+        parent::install();
+    }
+
+    /**
      * Installs the package's authentication routes.
      *
      * @return void
@@ -27,13 +37,13 @@ class GenerateCommand extends BaseGenerateCommand
     }
 
     /**
-     * Installs the package's authentication tests.
+     * Installs the package's authentication controllers.
      *
      * @return void
      */
-    protected function installTests(): void
+    protected function installControllers(): void
     {
-        $this->generate('Tests.AuthenticationTest', base_path('tests/Feature/AuthenticationTest.php'));
+        parent::installControllers();
     }
 
     /**
@@ -55,5 +65,17 @@ class GenerateCommand extends BaseGenerateCommand
         $this->copy('views/settings/confirm_totp.blade.stub', resource_path('views/auth/settings/confirm_totp.blade.php'));
         $this->copy('views/settings/credentials.blade.stub', resource_path('views/auth/settings/credentials.blade.php'));
         $this->copy('views/settings/recovery_codes.blade.stub', resource_path('views/auth/settings/recovery_codes.blade.php'));
+    }
+
+    /**
+     * Installs the package's authentication tests.
+     *
+     * @return void
+     */
+    protected function installTests(): void
+    {
+        parent::installTests();
+
+        $this->generate('Tests.AuthenticationTest', base_path('tests/Feature/AuthenticationTest.php'));
     }
 }
