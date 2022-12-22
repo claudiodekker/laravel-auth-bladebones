@@ -32,9 +32,9 @@ class AccountRecoveryChallengeController extends BaseController
      *
      * {!! '@' !!}param  \Illuminate\Http\Request  $request
      * {!! '@' !!}param  string  $token
-     * {!! '@' !!}return \Illuminate\Contracts\View\View
+     * {!! '@' !!}return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function create(Request $request, string $token): View
+    public function create(Request $request, string $token): View|RedirectResponse
     {
         return parent::create($request, $token);
     }
