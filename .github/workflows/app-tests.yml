@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [ 8.1 ]
+        php: [ 8.1, 8.2 ]
         laravel: [ 9 ]
         stability: [ 'prefer-lowest', 'prefer-stable' ]
         variants: [
@@ -24,10 +24,25 @@ jobs:
 
     name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} ${{ matrix.variants }} (w/ ${{ matrix.stability }})
     steps:
-      - name: Checkout code
+      - name: Checkout core
         uses: actions/checkout@v3
         with:
-          path: ./package
+          repository: "claudiodekker/laravel-auth"
+          ref: '1.x'
+          path: ./core
+
+      - name: Checkout adapter
+        uses: actions/checkout@v3
+        with:
+          path: ./adapter
+
+      - name: Core - Switch to predictable branch name
+        run: git checkout -b gh-actions-predictable-core-branch
+        working-directory: ./core
+
+      - name: Adapter - Switch to predictable branch name
+        run: git checkout -b gh-actions-predictable-adapter-branch
+        working-directory: ./adapter
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -51,10 +66,11 @@ jobs:
           sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=secret/" .env
         working-directory: ./app
 
-      - name: Install Package
+      - name: Install Packages
         run: |
-          composer config repositories.package path ../package
-          composer require claudiodekker/laravel-auth-bladebones --${{ matrix.stability }}
+          composer config repositories.core path ../core
+          composer config repositories.adapter path ../adapter
+          composer require "claudiodekker/laravel-auth:dev-gh-actions-predictable-core-branch as 1.9999.0" "claudiodekker/laravel-auth-bladebones:dev-gh-actions-predictable-adapter-branch" --${{ matrix.stability }}
         working-directory: ./app
 
       - name: Generate Auth Scaffolding
