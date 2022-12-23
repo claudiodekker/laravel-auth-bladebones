@@ -45,12 +45,12 @@ class MultiFactorChallengeController extends BaseController
      * Handle an incoming request to view the multi-factor challenge page.
      *
      * {!! '@' !!}param  \Illuminate\Http\Request  $request
-     * {!! '@' !!}return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+     * {!! '@' !!}return \Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      *
      * {!! '@' !!}see static::sendAuthenticatedResponse()
      * {!! '@' !!}see static::sendChallengePageResponse()
      */
-    public function create(Request $request): View|RedirectResponse
+    public function create(Request $request): View|JsonResponse|RedirectResponse
     {
         return parent::create($request);
     }
@@ -59,7 +59,7 @@ class MultiFactorChallengeController extends BaseController
      * Handle an incoming multi-factor challenge confirmation request.
      *
      * {!! '@' !!}param  \Illuminate\Http\Request  $request
-     * {!! '@' !!}return \Illuminate\Http\JsonResponse
+     * {!! '@' !!}return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      *
 @if (!$withoutRateLimiting)
      * {!! '@' !!}see static::sendRateLimitedResponse()
@@ -68,7 +68,7 @@ class MultiFactorChallengeController extends BaseController
      * {!! '@' !!}see static::sendAuthenticatedResponse()
      * {!! '@' !!}see static::sendInvalidPublicKeyChallengeStateResponse()
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request): JsonResponse|RedirectResponse
     {
         return parent::store($request);
     }

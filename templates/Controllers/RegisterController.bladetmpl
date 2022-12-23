@@ -118,9 +118,9 @@ class RegisterController extends BaseController
      * Sends a response indicating that the passkey-based registration process has been cancelled.
      *
      * {!! '@' !!}param  \Illuminate\Http\Request  $request
-     * {!! '@' !!}return mixed
+     * {!! '@' !!}return \Illuminate\Http\JsonResponse
      */
-    protected function sendPasskeyRegistrationCancelledResponse(Request $request)
+    protected function sendPasskeyRegistrationCancelledResponse(Request $request): JsonResponse
     {
         return new JsonResponse([
             'message' => 'The passkey registration has been cancelled.',
