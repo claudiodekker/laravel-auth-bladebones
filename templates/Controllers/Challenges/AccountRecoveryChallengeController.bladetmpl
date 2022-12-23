@@ -32,9 +32,13 @@ class AccountRecoveryChallengeController extends BaseController
      *
      * {!! '@' !!}param  \Illuminate\Http\Request  $request
      * {!! '@' !!}param  string  $token
-     * {!! '@' !!}return \Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+     * {!! '@' !!}return \Illuminate\Http\RedirectResponse|\Illuminate\Contracts\View\View
+     *
+     * {!! '@' !!}see static::sendAccountRecoveredResponse()
+     * {!! '@' !!}see static::sendChallengePageResponse()
+     * {!! '@' !!}see static::sendInvalidRecoveryLinkResponse()
      */
-    public function create(Request $request, string $token): View|RedirectResponse
+    public function create(Request $request, string $token): RedirectResponse|View
     {
         return parent::create($request, $token);
     }
@@ -45,6 +49,13 @@ class AccountRecoveryChallengeController extends BaseController
      * {!! '@' !!}param  \Illuminate\Http\Request  $request
      * {!! '@' !!}param  string  $token
      * {!! '@' !!}return \Illuminate\Http\RedirectResponse
+     *
+     * {!! '@' !!}see static::sendAccountRecoveredResponse()
+     * {!! '@' !!}see static::sendInvalidRecoveryCodeResponse()
+     * {!! '@' !!}see static::sendInvalidRecoveryLinkResponse()
+@if (!$withoutRateLimiting)
+     * {!! '@' !!}see static::sendRateLimitedResponse()
+@endif
      */
     public function store(Request $request, string $token): RedirectResponse
     {

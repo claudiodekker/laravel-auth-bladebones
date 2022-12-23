@@ -42,6 +42,9 @@ class SudoModeChallengeController extends BaseController
      *
      * {!! '@' !!}param  \Illuminate\Http\Request  $request
      * {!! '@' !!}return \Illuminate\Contracts\View\View
+     *
+     * {!! '@' !!}see static::sendConfirmationNotRequiredResponse()
+     * {!! '@' !!}see static::sendChallengePageResponse()
      */
     public function create(Request $request): View
     {
@@ -53,6 +56,15 @@ class SudoModeChallengeController extends BaseController
      *
      * {!! '@' !!}param  \Illuminate\Http\Request  $request
      * {!! '@' !!}return \Illuminate\Http\JsonResponse
+     *
+     * {!! '@' !!}see static::sendConfirmationNotRequiredResponse()
+@if (!$withoutRateLimiting)
+     * {!! '@' !!}see static::sendRateLimitedResponse()
+@endif
+     * {!! '@' !!}see static::sendPasswordChallengeFailedResponse()
+     * {!! '@' !!}see static::sendInvalidPublicKeyChallengeStateResponse()
+     * {!! '@' !!}see static::sendPublicKeyChallengeFailedResponse()
+     * {!! '@' !!}see static::sendSudoModeEnabledResponse()
      */
     public function store(Request $request): JsonResponse
     {

@@ -45,6 +45,8 @@ class LoginController extends BaseController
      *
      * {!! '@' !!}param  \Illuminate\Http\Request  $request
      * {!! '@' !!}return \Illuminate\Contracts\View\View
+     *
+     * {!! '@' !!}see static::sendLoginPageResponse()
      */
     public function create(Request $request): View
     {
@@ -56,6 +58,14 @@ class LoginController extends BaseController
      *
      * {!! '@' !!}param  \Illuminate\Http\Request  $request
      * {!! '@' !!}return \Illuminate\Http\JsonResponse
+     *
+@if (!$withoutRateLimiting)
+     * {!! '@' !!}see static::sendRateLimitedResponse()
+@endif
+     * {!! '@' !!}see static::sendInvalidPasskeyAuthenticationStateResponse()
+     * {!! '@' !!}see static::sendMultiFactorChallengeResponse()
+     * {!! '@' !!}see static::sendAuthenticationFailedResponse()
+     * {!! '@' !!}see static::sendAuthenticatedResponse()
      */
     public function store(Request $request): JsonResponse
     {
@@ -67,6 +77,8 @@ class LoginController extends BaseController
      *
      * {!! '@' !!}param  \Illuminate\Http\Request  $request
      * {!! '@' !!}return \Illuminate\Http\RedirectResponse
+     *
+     * {!! '@' !!}see static::sendLoggedOutResponse()
      */
     public function destroy(Request $request): RedirectResponse
     {
